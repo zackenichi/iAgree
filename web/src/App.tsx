@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Box, Container, Typography } from '@mui/material';
+import { FC } from 'react';
 
-function App() {
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh', // Set min-height to 100vh for vertical centering
+      }}
+    >
+      <Container maxWidth="md" data-testid="app-container">
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 4,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Typography variant="h1" align="center">
+            React + TypeScript + MUI v5 + React-Redux toolkit
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   );
-}
+};
 
 export default App;
