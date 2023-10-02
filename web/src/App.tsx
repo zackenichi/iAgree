@@ -1,44 +1,46 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { FC } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { routes as appRoutes } from './routes';
+import { Header } from './components/Header';
+import NotFound from './pages/NotFound';
 
 const App: FC = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh', // Set min-height to 100vh for vertical centering
+        display: 'grid',
+        height: '100vh',
+        gridTemplateRows: 'auto 1fr',
+        gridTemplateAreas: `"header" "main"`,
       }}
+      id="appContainer"
     >
-      <Container maxWidth="md" data-testid="app-container">
-        {/* <Box
-          sx={{
-            flexGrow: 1,
-            p: 4,
-          }}
-        >
-          
-          
-        </Box> */}
-
-        <Box height="100vh" display="flex" flexDirection="column">
-          <Router>
-            <Routes>
-              {appRoutes.map((route) => (
-                <Route
-                  key={route.key}
-                  path={route.path}
-                  element={<route.component />}
-                />
-              ))}
-            </Routes>
-          </Router>
-        </Box>
-      </Container>
+      <Box
+        sx={{
+          gridArea: 'header',
+        }}
+      >
+        <Header />
+      </Box>
+      <Box
+        sx={{
+          gridArea: 'main',
+          maxHeight: 'calc(100vh - 64px)',
+          p: 4,
+        }}
+      >
+        <Routes>
+          {appRoutes.map((route) => (
+            <Route
+              key={route.key}
+              path={route.path}
+              element={<route.component />}
+            />
+          ))}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Box>
     </Box>
   );
 };
