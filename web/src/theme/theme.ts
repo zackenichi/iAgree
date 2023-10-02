@@ -13,6 +13,14 @@ const componentOverrides: ThemeOptions['components'] = {
         fontSize: '2rem',
         fontWeight: 600,
       },
+      body2: {
+        fontSize: '16px',
+        fontWeight: 400,
+        textDecoration: 'underline',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
     },
   },
 };

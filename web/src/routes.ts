@@ -19,7 +19,7 @@ interface Route {
 export const routes: Array<Route> = [
   {
     key: 'home-route',
-    title: 'Home',
+    title: 'Dashboard',
     path: '/',
     enabled: true,
     component: Home,
