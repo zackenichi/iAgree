@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { routes as appRoutes } from './routes';
 import { Header } from './components/Header';
 import NotFound from './pages/NotFound';
+import { ContentArea } from './components/ContentArea';
 
 const App: FC = () => {
   return (
@@ -23,13 +24,7 @@ const App: FC = () => {
       >
         <Header />
       </Box>
-      <Box
-        sx={{
-          gridArea: 'main',
-          maxHeight: 'calc(100vh - 64px)',
-          p: 4,
-        }}
-      >
+      <ContentArea>
         <Routes>
           {appRoutes.map((route) => (
             <Route
@@ -40,7 +35,7 @@ const App: FC = () => {
           ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Box>
+      </ContentArea>
     </Box>
   );
 };
