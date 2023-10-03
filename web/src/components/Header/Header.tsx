@@ -6,13 +6,27 @@ import Button from '@mui/material/Button';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { routes } from '../../routes';
 import { Link, useLocation } from 'react-router-dom';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Badge, IconButton } from '@mui/material';
+import { Search } from '../Search';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
+  const [notifCount, setNotifCount] = useState(0);
+
+  // test action before we have db
+  const handleAddNotif = () => {
+    setNotifCount(notifCount + 1);
+  };
+
+  const handleLogin = () => {
+    // test action before we have login feature
+    setNotifCount(0);
+  };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, alignItems: 'center' }}>
       <AppBar position="static">
         <Toolbar>
           <HandshakeIcon />
@@ -23,7 +37,7 @@ const Header: FC = () => {
             sx={{
               flexGrow: 1,
               display: { xs: 'none', md: 'flex' },
-              justifyContent: 'flex-start', // Align links to the left on larger screens
+              justifyContent: 'flex-start',
             }}
           >
             <Box
@@ -54,7 +68,23 @@ const Header: FC = () => {
               ))}
             </Box>
           </Box>
-          <Button color="inherit">Login</Button>
+          <Box textAlign="right">
+            <Search />
+          </Box>
+          <Box>
+            <IconButton onClick={handleAddNotif}>
+              <Badge
+                badgeContent={notifCount}
+                color="warning"
+                invisible={!Boolean(notifCount)}
+              >
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Box>
+          <Button color="inherit" onClick={handleLogin}>
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
