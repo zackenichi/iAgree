@@ -6,11 +6,15 @@ const componentOverrides: ThemeOptions['components'] = {
     styleOverrides: {
       h1: {
         fontSize: '2.5rem',
-        fontWeight: 600,
+        fontWeight: 800,
         color: colors.primary,
       },
       h2: {
         fontSize: '2rem',
+        fontWeight: 800,
+      },
+      h3: {
+        fontSize: '1.2rem',
         fontWeight: 600,
       },
       body2: {
@@ -47,7 +51,16 @@ const theme = createTheme({
     },
     background: {
       default: colors.background,
-      paper: colors.background,
+      paper: colors.cardbg,
+    },
+    success: {
+      main: colors.success,
+    },
+    info: {
+      main: colors.info,
+    },
+    warning: {
+      main: colors.warning,
     },
   },
   components: componentOverrides,
