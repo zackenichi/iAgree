@@ -1,11 +1,14 @@
-import { ReactElement, FC } from 'react';
+import { ReactElement, FC, useState } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { List as AgreementList } from '../components/List';
 import { NoItems } from '../components/UI';
 import { Agreement } from '../resources/interfaces/Agreement';
+import { AddScreen } from '../components/AddScreen';
 
 const Agreements: FC = (): ReactElement => {
+  const [openAdd, setOpenAdd] = useState(false);
+
   const agreements: Agreement[] = [
     {
       id: 1,
@@ -57,19 +60,33 @@ const Agreements: FC = (): ReactElement => {
     },
   ];
 
+  const handleOpenAdd = () => {
+    setOpenAdd(true);
+  };
+
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
   return (
     <>
       <Grid item md={6} xs={12}>
         <Typography variant="h1">Agreements</Typography>
       </Grid>
       <Grid item md={6} xs={12} sx={{ textAlign: { md: 'right', xs: 'left' } }}>
-        <Button variant="contained" endIcon={<AddIcon />}>
+        <Button
+          variant="contained"
+          endIcon={<AddIcon />}
+          onClick={handleOpenAdd}
+        >
           Create
         </Button>
       </Grid>
       <Grid item xs={12}>
         {agreements.length ? <AgreementList data={agreements} /> : <NoItems />}
       </Grid>
+
+      <AddScreen open={openAdd} handleClose={handleCloseAdd} />
     </>
   );
 };

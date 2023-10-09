@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { routes as appRoutes } from './routes';
-import { Header } from './components/Header';
-import NotFound from './pages/NotFound';
-import { ContentArea } from './components/ContentArea';
+import { routes as appRoutes } from '../../routes';
+import { Header } from '../Header';
+import NotFound from '../../pages/NotFound';
+import { ContentArea } from '../ContentArea';
 
 const App: FC = () => {
   return (
@@ -40,4 +40,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export { App };
