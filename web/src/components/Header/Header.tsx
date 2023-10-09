@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { routes } from '../../routes';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FC, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, IconButton } from '@mui/material';
@@ -14,6 +14,8 @@ import { Search } from '../Search';
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
+
+  const navigate = useNavigate();
 
   // test action before we have db
   const handleAddNotif = () => {
@@ -25,14 +27,25 @@ const Header: FC = () => {
     setNotifCount(0);
   };
 
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
   return (
     <Box sx={{ flexGrow: 1, alignItems: 'center' }}>
       <AppBar position="static">
         <Toolbar>
-          <HandshakeIcon />
-          <Typography variant="h6" component="div">
-            iAgree
-          </Typography>
+          <Box
+            display="flex"
+            alignItems="center"
+            onClick={handleLogoClick}
+            sx={{ cursor: 'pointer ' }}
+          >
+            <HandshakeIcon />
+            <Typography variant="h6" component="div">
+              iAgree
+            </Typography>
+          </Box>
           <Box
             sx={{
               flexGrow: 1,

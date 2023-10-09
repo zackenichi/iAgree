@@ -19,6 +19,7 @@ const Search: FC = () => {
         inputRef={searchRef}
         inputProps={{
           'aria-label': 'search',
+          autoComplete: 'new-password',
           sx: {
             // color: 'white',
             transition: 'width 120ms ease-out',
@@ -27,6 +28,7 @@ const Search: FC = () => {
           },
         }}
         InputProps={{
+          sx: { height: '2.5rem' },
           endAdornment: (
             <InputAdornment position="end" sx={{ cursor: 'pointer' }}>
               <SearchIcon fontSize="small" />
