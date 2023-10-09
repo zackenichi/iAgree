@@ -14,9 +14,10 @@ import { Divider } from '../Divider';
 interface AddScreenProps {
   open: boolean;
   handleClose: () => void;
+  handleCreate: () => void;
 }
 
-const AddScreen: FC<AddScreenProps> = ({ open, handleClose }) => {
+const AddScreen: FC<AddScreenProps> = ({ open, handleClose, handleCreate }) => {
   return (
     <Drawer anchor="right" open={open} onClose={handleClose}>
       <Box sx={{ width: { md: 400, xs: '100vw' } }} p={4}>
@@ -59,7 +60,7 @@ const AddScreen: FC<AddScreenProps> = ({ open, handleClose }) => {
             </Button>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Button variant="contained" fullWidth>
+            <Button variant="contained" fullWidth onClick={handleCreate}>
               Create
             </Button>
           </Grid>

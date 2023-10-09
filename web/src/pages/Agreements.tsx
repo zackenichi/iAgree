@@ -9,56 +9,58 @@ import { AddScreen } from '../components/AddScreen';
 const Agreements: FC = (): ReactElement => {
   const [openAdd, setOpenAdd] = useState(false);
 
-  const agreements: Agreement[] = [
-    {
-      id: 1,
-      name: 'Agreement 1',
-      description: 'This is the first agreement',
-      status: 'Waiting',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: true,
-          updatedAt: new Date(),
-        },
-        {
-          id: 2,
-          name: 'Jane Doe',
-          status: false,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Agreement 2',
-      description: 'This is the second agreement',
-      status: 'Approved',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: true,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Agreement 3',
-      description: 'This is the third agreement',
-      status: 'Rejected',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: false,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-  ];
+  const [list, setList] = useState<Agreement[]>([]);
+
+  // const agreements: Agreement[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Agreement 1',
+  //     description: 'This is the first agreement',
+  //     status: 'Waiting',
+  //     approvals: [
+  //       {
+  //         id: 1,
+  //         name: 'John Doe',
+  //         status: true,
+  //         updatedAt: new Date(),
+  //       },
+  //       {
+  //         id: 2,
+  //         name: 'Jane Doe',
+  //         status: false,
+  //         updatedAt: new Date(),
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Agreement 2',
+  //     description: 'This is the second agreement',
+  //     status: 'Approved',
+  //     approvals: [
+  //       {
+  //         id: 1,
+  //         name: 'John Doe',
+  //         status: true,
+  //         updatedAt: new Date(),
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Agreement 3',
+  //     description: 'This is the third agreement',
+  //     status: 'Rejected',
+  //     approvals: [
+  //       {
+  //         id: 1,
+  //         name: 'John Doe',
+  //         status: false,
+  //         updatedAt: new Date(),
+  //       },
+  //     ],
+  //   },
+  // ];
 
   const handleOpenAdd = () => {
     setOpenAdd(true);
@@ -66,6 +68,12 @@ const Agreements: FC = (): ReactElement => {
 
   const handleCloseAdd = () => {
     setOpenAdd(false);
+  };
+
+  // test before moving to redux
+  const handleNewAgreement = (agreement: Agreement) => {
+    setList([...list, agreement]);
+    handleCloseAdd();
   };
 
   return (
@@ -83,10 +91,23 @@ const Agreements: FC = (): ReactElement => {
         </Button>
       </Grid>
       <Grid item xs={12}>
-        {agreements.length ? <AgreementList data={agreements} /> : <NoItems />}
+        {list.length ? <AgreementList data={list} /> : <NoItems />}
       </Grid>
 
-      <AddScreen open={openAdd} handleClose={handleCloseAdd} />
+      <AddScreen
+        open={openAdd}
+        handleClose={handleCloseAdd}
+        // test only
+        handleCreate={() =>
+          handleNewAgreement({
+            id: '1',
+            name: 'test',
+            description: 'test',
+            status: 'test',
+            approvals: [],
+          })
+        }
+      />
     </>
   );
 };
