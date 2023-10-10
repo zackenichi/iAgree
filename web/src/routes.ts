@@ -2,7 +2,7 @@
 import Home from './pages/Home';
 import About from './pages/About';
 import Agreements from './pages/Agreements';
-import Settings from './pages/Settings';
+// import Settings from './pages/Settings';
 
 // other
 import { FC } from 'react';
@@ -31,13 +31,13 @@ export const routes: Array<Route> = [
     enabled: true,
     component: Agreements,
   },
-  {
-    key: 'settings-route',
-    title: 'Settings',
-    path: '/settings',
-    enabled: true,
-    component: Settings,
-  },
+  // {
+  //   key: 'settings-route',
+  //   title: 'Settings',
+  //   path: '/settings',
+  //   enabled: true,
+  //   component: Settings,
+  // },
   {
     key: 'about-route',
     title: 'About',

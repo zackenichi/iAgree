@@ -1,71 +1,26 @@
-import { ReactElement, FC, useState } from 'react';
+import { ReactElement, FC } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { List as AgreementList } from '../components/List';
 import { NoItems } from '../components/UI';
-import { Agreement } from '../resources/interfaces/Agreement';
+
 import { AddScreen } from '../components/AddScreen';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { setOpenDrawer } from '../store/UiReducer';
 
 const Agreements: FC = (): ReactElement => {
-  const [openAdd, setOpenAdd] = useState(false);
+  const dispatch = useDispatch();
 
-  const agreements: Agreement[] = [
-    {
-      id: 1,
-      name: 'Agreement 1',
-      description: 'This is the first agreement',
-      status: 'Waiting',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: true,
-          updatedAt: new Date(),
-        },
-        {
-          id: 2,
-          name: 'Jane Doe',
-          status: false,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Agreement 2',
-      description: 'This is the second agreement',
-      status: 'Approved',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: true,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Agreement 3',
-      description: 'This is the third agreement',
-      status: 'Rejected',
-      approvals: [
-        {
-          id: 1,
-          name: 'John Doe',
-          status: false,
-          updatedAt: new Date(),
-        },
-      ],
-    },
-  ];
+  const agreementList = useSelector((state: RootState) => state.agreement.list);
 
   const handleOpenAdd = () => {
-    setOpenAdd(true);
+    dispatch(setOpenDrawer(true));
   };
 
+  // creating separate function and passing this as we would be doing another set of actions
   const handleCloseAdd = () => {
-    setOpenAdd(false);
+    dispatch(setOpenDrawer(false));
   };
 
   return (
@@ -83,10 +38,14 @@ const Agreements: FC = (): ReactElement => {
         </Button>
       </Grid>
       <Grid item xs={12}>
-        {agreements.length ? <AgreementList data={agreements} /> : <NoItems />}
+        {agreementList.length ? (
+          <AgreementList data={agreementList} />
+        ) : (
+          <NoItems handleCreate={handleOpenAdd} />
+        )}
       </Grid>
 
-      <AddScreen open={openAdd} handleClose={handleCloseAdd} />
+      <AddScreen handleClose={handleCloseAdd} />
     </>
   );
 };
