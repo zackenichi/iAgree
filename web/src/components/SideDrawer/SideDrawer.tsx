@@ -10,13 +10,14 @@ import { RootState } from '../../store';
 
 interface SideDrawerProps {
   children: React.ReactNode;
+  handleClose?: () => void;
 }
 
-const SideDrawer: FC<SideDrawerProps> = ({ children }) => {
+const SideDrawer: FC<SideDrawerProps> = ({ children, handleClose }) => {
   const openDrawer = useSelector((state: RootState) => state.ui.isDrawerOpen);
 
   return (
-    <Drawer anchor="right" open={openDrawer} onClose={() => {}}>
+    <Drawer anchor="right" open={openDrawer} onClose={handleClose}>
       <Box sx={{ width: { md: 400, xs: '100vw' } }} p={4}>
         {children}
       </Box>

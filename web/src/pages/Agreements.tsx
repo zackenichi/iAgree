@@ -18,6 +18,7 @@ const Agreements: FC = (): ReactElement => {
     dispatch(setOpenDrawer(true));
   };
 
+  // creating separate function and passing this as we would be doing another set of actions
   const handleCloseAdd = () => {
     dispatch(setOpenDrawer(false));
   };

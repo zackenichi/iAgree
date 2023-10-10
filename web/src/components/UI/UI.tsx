@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import { FC } from 'react';
-import DoneIcon from '@mui/icons-material/Done';
+
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 
 interface NoItemsProps {
   handleCreate?: () => void;
@@ -28,18 +29,24 @@ const ApprovalRate: FC<{ approved: number; total: number }> = ({
   total,
 }) => {
   return (
-    <Grid container spacing={0} alignItems="center" justifyContent="flex-end">
+    <Grid
+      container
+      spacing={0}
+      alignItems="center"
+      justifyContent="flex-end"
+      sx={{ flexWrap: 'wrap' }}
+    >
+      <Grid item xs={6}>
+        {total ? <ThumbUpOffAltIcon fontSize="small" /> : ''}
+      </Grid>
       <Grid item xs={2}>
-        <DoneIcon />
+        <Typography>{approved ? approved : ''}</Typography>
       </Grid>
-      <Grid item xs={1}>
-        <Typography>{approved}</Typography>
+      <Grid item xs={2}>
+        {total ? '/' : ''}
       </Grid>
-      <Grid item xs={1}>
-        /
-      </Grid>
-      <Grid item xs={1}>
-        <Typography>{total}</Typography>
+      <Grid item xs={2}>
+        <Typography>{total || ''}</Typography>
       </Grid>
     </Grid>
   );
