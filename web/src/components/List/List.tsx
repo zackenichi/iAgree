@@ -13,7 +13,9 @@ const List: FC<ListProps> = ({ data }) => {
       {data.map((item) => (
         <Grid item md={3} xs={12} key={item.id}>
           <SummaryCard
+            id={item.id}
             title={item.name}
+            description={item.description}
             status={item.status}
             approvals={item.approvals}
           />

@@ -17,6 +17,11 @@ const componentOverrides: ThemeOptions['components'] = {
         fontSize: '1.2rem',
         fontWeight: 600,
       },
+      h4: {
+        fontSize: '1rem',
+        fontWeight: 600,
+        color: colors.primary,
+      },
       body2: {
         fontSize: '16px',
         fontWeight: 400,
