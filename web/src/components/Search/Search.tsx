@@ -1,14 +1,20 @@
-import { FC, useRef } from 'react';
-import { Box, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import { FC, useState } from 'react';
+import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import { useIsSmallScreen } from '../../hooks';
 
 const Search: FC = () => {
-  const searchRef = useRef<TextFieldProps>(null);
+  const [search, setSearch] = useState<string>('');
+
+  const isSmallScreen = useIsSmallScreen();
 
   const handleSearch = () => {
-    const search = searchRef.current?.value;
-
     console.log(search);
+  };
+
+  const handleClear = () => {
+    setSearch('');
   };
 
   return (
@@ -16,25 +22,33 @@ const Search: FC = () => {
       <TextField
         variant="outlined"
         placeholder="Search…"
-        inputRef={searchRef}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         inputProps={{
           'aria-label': 'search',
           autoComplete: 'new-password',
           sx: {
             // color: 'white',
             transition: 'width 120ms ease-out',
-            width: '100px',
-            '&:focus': { width: '250px' },
+            width: { md: '100px', xs: '90px' },
+            '&:focus': { width: isSmallScreen ? '90px' : '250px' },
           },
         }}
         InputProps={{
           sx: { height: '2.5rem' },
           endAdornment: (
-            <InputAdornment position="end" sx={{ cursor: 'pointer' }}>
-              <SearchIcon fontSize="small" />
+            <InputAdornment position="end">
+              {search ? (
+                <IconButton onClick={handleClear}>
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+              ) : (
+                <SearchIcon fontSize="small" />
+              )}
             </InputAdornment>
           ),
           autoComplete: 'off',
+          // change this later - as this would be an autocomplete search
           onClick: handleSearch,
         }}
       />

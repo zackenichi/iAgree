@@ -9,11 +9,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FC, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, IconButton } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
 import { Search } from '../Search';
+import { useIsSmallScreen } from '../../hooks';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
+
+  const isSmallScreen = useIsSmallScreen();
 
   const navigate = useNavigate();
 
@@ -95,9 +99,13 @@ const Header: FC = () => {
               </Badge>
             </IconButton>
           </Box>
-          <Button color="inherit" onClick={handleLogin}>
-            Login
-          </Button>
+          {isSmallScreen ? (
+            <LoginIcon />
+          ) : (
+            <Button color="inherit" variant="outlined" onClick={handleLogin}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
