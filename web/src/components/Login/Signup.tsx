@@ -7,6 +7,9 @@ import {
 } from '../../utils/input';
 import { useDispatch } from 'react-redux';
 import { setShowSignUp } from '../../store/UiReducer';
+import { signUpUser } from '../../firebase/firebase';
+import { setNotification } from '../../store/NotificationReducer';
+import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
   name: '',
@@ -17,6 +20,7 @@ const defaultFormFields = {
 
 const Signup: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { name, organization, email, password } = formFields;
@@ -55,7 +59,46 @@ const Signup: FC = () => {
     dispatch(setShowSignUp(false));
   };
 
-  const handleSignup = () => {};
+  const handleSignup = async () => {
+    try {
+      if (nameError || emailError || passwordError) {
+        setEmailError(true);
+
+        throw new Error('Invalid input');
+      }
+
+      const user = await signUpUser(email, password);
+
+      if (!user) {
+        throw new Error('User not created');
+      }
+
+      //   do something else for firebase DB
+
+      //   snackbar
+
+      dispatch(
+        setNotification({
+          message: 'Sign up Successful!',
+          severity: 'success',
+          open: true,
+        })
+      );
+
+      navigate('/');
+    } catch (error: any) {
+      dispatch(
+        setNotification({
+          message: 'Sign up failed!',
+          severity: 'error',
+          open: true,
+        })
+      );
+    }
+  };
+
+  const incomplete =
+    !name || !email || !password || emailError || passwordError;
 
   return (
     <Container maxWidth="xs">
@@ -152,8 +195,9 @@ const Signup: FC = () => {
             color="primary"
             fullWidth
             onClick={handleSignup}
+            disabled={incomplete}
           >
-            Login
+            Register
           </Button>
         </Grid>
         <Grid item xs={12} sx={{ textAlign: 'center' }}>
@@ -162,7 +206,10 @@ const Signup: FC = () => {
             <Button
               onClick={handleShowLogin}
               variant="text"
-              sx={{ textDecoration: 'underline', textTransform: 'capitalize' }}
+              sx={{
+                textDecoration: 'underline',
+                textTransform: 'capitalize',
+              }}
             >
               Login
             </Button>

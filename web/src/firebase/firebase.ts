@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   NextOrObserver,
   User,
+  createUserWithEmailAndPassword,
+  UserCredential,
 } from 'firebase/auth';
 import { getFirebaseConfig } from './firebase-config';
 
@@ -16,6 +18,15 @@ export const signInUser = async (email: string, password: string) => {
   if (!email && !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const signUpUser = async (
+  email: string,
+  password: string
+): Promise<UserCredential> => {
+  let user = await createUserWithEmailAndPassword(auth, email, password);
+
+  return user;
 };
 
 export const userStateListener = (callback: NextOrObserver<User>) => {

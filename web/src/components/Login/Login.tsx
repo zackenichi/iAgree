@@ -1,5 +1,12 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
-import React, { ChangeEvent, FC, useState } from 'react';
+import {
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  Zoom,
+} from '@mui/material';
+import { ChangeEvent, FC, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { signInUser } from '../../firebase/firebase';
@@ -86,9 +93,11 @@ const LoginForm: FC = () => {
   return (
     <Container maxWidth="xs">
       <Grid container spacing={2} justifyContent="center" alignItems="center">
-        <Grid item xs={12} textAlign="center">
-          <img src={agree} alt="login-iagree" height="300px" width="400px" />
-        </Grid>
+        <Zoom in={true} timeout={1200}>
+          <Grid item xs={12} textAlign="center">
+            <img src={agree} alt="login-iagree" height="300px" width="400px" />
+          </Grid>
+        </Zoom>
         <Grid item xs={12}>
           <TextField
             name="email"
@@ -138,7 +147,10 @@ const LoginForm: FC = () => {
             <Button
               onClick={handleShowSignup}
               variant="text"
-              sx={{ textDecoration: 'underline', textTransform: 'capitalize' }}
+              sx={{
+                textDecoration: 'underline',
+                textTransform: 'capitalize',
+              }}
             >
               Sign up
             </Button>
