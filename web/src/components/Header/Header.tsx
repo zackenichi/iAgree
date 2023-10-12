@@ -6,16 +6,21 @@ import Button from '@mui/material/Button';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { routes } from '../../routes';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, IconButton } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { Search } from '../Search';
 import { useIsSmallScreen } from '../../hooks';
+import { AuthContext } from '../../Providers';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
+
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser);
 
   const isSmallScreen = useIsSmallScreen();
 
