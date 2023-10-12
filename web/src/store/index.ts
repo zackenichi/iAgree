@@ -4,6 +4,7 @@ import UiReducer from './UiReducer';
 
 export const store = configureStore({
   reducer: {
+    auth: AgreementReducer,
     agreement: AgreementReducer,
     ui: UiReducer,
   },

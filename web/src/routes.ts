@@ -6,43 +6,44 @@ import Agreements from './pages/Agreements';
 
 // other
 import { FC } from 'react';
+import Login from './pages/Login';
 
 // interface
 interface Route {
   key: string;
   title: string;
   path: string;
-  enabled: boolean;
+  needsLogin: boolean;
   component: FC<{}>;
 }
 
 export const routes: Array<Route> = [
   {
+    key: 'login-route',
+    title: 'Login',
+    path: '/login',
+    needsLogin: false,
+    component: Login,
+  },
+  {
     key: 'home-route',
     title: 'Dashboard',
     path: '/',
-    enabled: true,
+    needsLogin: true,
     component: Home,
   },
   {
     key: 'agreements-route',
     title: 'Agreements',
     path: '/agreements',
-    enabled: true,
+    needsLogin: true,
     component: Agreements,
   },
-  // {
-  //   key: 'settings-route',
-  //   title: 'Settings',
-  //   path: '/settings',
-  //   enabled: true,
-  //   component: Settings,
-  // },
   {
     key: 'about-route',
     title: 'About',
     path: '/about',
-    enabled: true,
+    needsLogin: true,
     component: About,
   },
 ];

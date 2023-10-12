@@ -6,16 +6,19 @@ import Button from '@mui/material/Button';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import { routes } from '../../routes';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Badge, IconButton } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { Search } from '../Search';
 import { useIsSmallScreen } from '../../hooks';
+import { AuthContext } from '../../Providers';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
+
+  const { currentUser } = useContext(AuthContext);
 
   const isSmallScreen = useIsSmallScreen();
 
@@ -65,24 +68,27 @@ const Header: FC = () => {
                 marginLeft: '1rem',
               }}
             >
-              {routes.map((page) => (
-                <Box key={page.key}>
-                  <Link to={page.path} style={{ textDecoration: 'none' }}>
-                    <Typography
-                      color={current === page.path ? 'yellow' : 'white'}
-                      sx={{
-                        marginRight: '1rem',
-                        fontWeight: 'bold',
-                        '&:hover': {
-                          color: 'yellow',
-                        },
-                      }}
-                    >
-                      {page.title}
-                    </Typography>
-                  </Link>
-                </Box>
-              ))}
+              {currentUser &&
+                routes
+                  .filter((page) => page.key !== 'login-route')
+                  .map((page) => (
+                    <Box key={page.key}>
+                      <Link to={page.path} style={{ textDecoration: 'none' }}>
+                        <Typography
+                          color={current === page.path ? 'yellow' : 'white'}
+                          sx={{
+                            marginRight: '1rem',
+                            fontWeight: 'bold',
+                            '&:hover': {
+                              color: 'yellow',
+                            },
+                          }}
+                        >
+                          {page.title}
+                        </Typography>
+                      </Link>
+                    </Box>
+                  ))}
             </Box>
           </Box>
           <Box textAlign="right">

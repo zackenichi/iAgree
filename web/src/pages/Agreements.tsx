@@ -4,23 +4,22 @@ import AddIcon from '@mui/icons-material/Add';
 import { List as AgreementList } from '../components/List';
 import { NoItems } from '../components/UI';
 
-import { AddScreen } from '../components/AddScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { setOpenDrawer } from '../store/UiReducer';
+import { setMode, setOpenDrawer } from '../store/UiReducer';
+import { AddScreen } from '../components/AddScreen';
+import EditScreen from '../components/EditScreen/EditScreen';
+import { SideDrawer } from '../components/SideDrawer';
 
 const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   const agreementList = useSelector((state: RootState) => state.agreement.list);
+  const mode = useSelector((state: RootState) => state.ui.mode);
 
-  const handleOpenAdd = () => {
+  const handleCreate = () => {
+    dispatch(setMode('create'));
     dispatch(setOpenDrawer(true));
-  };
-
-  // creating separate function and passing this as we would be doing another set of actions
-  const handleCloseAdd = () => {
-    dispatch(setOpenDrawer(false));
   };
 
   return (
@@ -32,7 +31,7 @@ const Agreements: FC = (): ReactElement => {
         <Button
           variant="contained"
           endIcon={<AddIcon />}
-          onClick={handleOpenAdd}
+          onClick={handleCreate}
         >
           Create
         </Button>
@@ -41,11 +40,12 @@ const Agreements: FC = (): ReactElement => {
         {agreementList.length ? (
           <AgreementList data={agreementList} />
         ) : (
-          <NoItems handleCreate={handleOpenAdd} />
+          <NoItems handleCreate={handleCreate} />
         )}
       </Grid>
-
-      <AddScreen handleClose={handleCloseAdd} />
+      <SideDrawer handleClose={() => dispatch(setOpenDrawer(false))}>
+        {mode === 'create' ? <AddScreen /> : <EditScreen />}
+      </SideDrawer>
     </>
   );
 };

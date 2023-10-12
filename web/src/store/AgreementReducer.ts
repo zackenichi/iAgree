@@ -3,18 +3,18 @@ import { Agreement } from '../resources/interfaces/Agreement';
 
 export interface AgreementInitialState {
   list: Agreement[];
-  //   draft: Agreement;
+  preview: Agreement;
 }
 
 const initialState: AgreementInitialState = {
   list: [],
-  //   draft: {
-  //     id: 'draft',
-  //     name: '',
-  //     description: '',
-  //     status: '',
-  //     approvals: [],
-  //   },
+  preview: {
+    id: 'draft',
+    name: '',
+    description: '',
+    status: '',
+    approvals: [],
+  },
 };
 
 export const agreementsSlice = createSlice({
@@ -24,8 +24,11 @@ export const agreementsSlice = createSlice({
     createAgreement: (state, action: PayloadAction<Agreement>) => {
       state.list.push(action.payload);
     },
+    setPreview: (state, action: PayloadAction<Agreement>) => {
+      state.preview = action.payload;
+    },
   },
 });
 
-export const { createAgreement } = agreementsSlice.actions;
+export const { createAgreement, setPreview } = agreementsSlice.actions;
 export default agreementsSlice.reducer;
