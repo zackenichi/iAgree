@@ -19,7 +19,6 @@ const Login: FC = (): ReactElement => {
       <Grid item xs={12} textAlign="center">
         <img src={agree} alt="login-iagree" height="300px" width="400px" />
       </Grid>
-
       <Grid item xs={12}>
         <LoginForm />
       </Grid>

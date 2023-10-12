@@ -6,6 +6,7 @@ import { Header } from '../Header';
 import NotFound from '../../pages/NotFound';
 import { ContentArea } from '../ContentArea';
 import { AuthContext } from '../../Providers';
+import { NotificationBar } from '../NotificationBar';
 
 const App: FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -35,6 +36,7 @@ const App: FC = () => {
         <Header />
       </Box>
       <ContentArea>
+        <NotificationBar />
         <Routes>
           {appRoutes.map((route) => (
             <Route
