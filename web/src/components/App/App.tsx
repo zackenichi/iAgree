@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { FC, useContext, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { routes as appRoutes } from '../../routes';
 import { Header } from '../Header';
 import NotFound from '../../pages/NotFound';
@@ -11,12 +11,13 @@ import { NotificationBar } from '../NotificationBar';
 const App: FC = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!currentUser) {
       navigate('/login');
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, pathname]);
 
   return (
     <Box
