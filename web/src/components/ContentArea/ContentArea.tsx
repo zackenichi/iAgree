@@ -14,7 +14,7 @@ const ContentArea: FC<ContentAreaProps> = ({ children }) => {
         p: 4,
       }}
     >
-      <Grid container spacing={2}>
+      <Grid container spacing={2} justifyContent="center">
         {children}
       </Grid>
     </Box>
