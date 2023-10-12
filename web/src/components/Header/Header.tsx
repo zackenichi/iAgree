@@ -18,7 +18,7 @@ const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, signOut } = useContext(AuthContext);
 
   const isSmallScreen = useIsSmallScreen();
 
@@ -30,8 +30,13 @@ const Header: FC = () => {
   };
 
   const handleLogin = () => {
-    // test action before we have login feature
-    setNotifCount(0);
+    if (currentUser) {
+      // log out
+      signOut();
+    } else {
+      // log in
+      navigate('/login');
+    }
   };
 
   const handleLogoClick = () => {
@@ -109,7 +114,7 @@ const Header: FC = () => {
             <LoginIcon />
           ) : (
             <Button color="inherit" variant="outlined" onClick={handleLogin}>
-              Login
+              {currentUser ? 'Logout' : 'Login'}
             </Button>
           )}
         </Toolbar>
