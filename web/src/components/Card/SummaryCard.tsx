@@ -53,7 +53,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
 
     dispatch(setPreview(entry));
 
-    dispatch(setMode('edit'));
+    dispatch(setMode('preview'));
     dispatch(setOpenDrawer(true));
   };
 
