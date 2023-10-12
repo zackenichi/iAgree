@@ -9,6 +9,7 @@ import { RootState } from '../store';
 import { setMode, setOpenDrawer } from '../store/UiReducer';
 import { AddScreen } from '../components/AddScreen';
 import EditScreen from '../components/EditScreen/EditScreen';
+import { SideDrawer } from '../components/SideDrawer';
 
 const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -42,7 +43,9 @@ const Agreements: FC = (): ReactElement => {
           <NoItems handleCreate={handleCreate} />
         )}
       </Grid>
-      {mode === 'create' ? <AddScreen /> : <EditScreen />}
+      <SideDrawer handleClose={() => dispatch(setOpenDrawer(false))}>
+        {mode === 'create' ? <AddScreen /> : <EditScreen />}
+      </SideDrawer>
     </>
   );
 };
