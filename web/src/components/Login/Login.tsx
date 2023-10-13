@@ -1,11 +1,20 @@
-import { Button, Container, Grid, TextField } from '@mui/material';
-import React, { ChangeEvent, FC, useState } from 'react';
+import {
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  Zoom,
+} from '@mui/material';
+import { ChangeEvent, FC, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { signInUser } from '../../firebase/firebase';
 import { isValidEmail, isValueEmpty } from '../../utils/input';
 import { useDispatch } from 'react-redux';
 import { setNotification } from '../../store/NotificationReducer';
+import { setShowSignUp } from '../../store/UiReducer';
+import agree from '../../assets/img/agreement.png';
 
 const defaultFormFields = {
   email: '',
@@ -25,7 +34,7 @@ const LoginForm: FC = () => {
     return setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async () => {
+  const handleLogin = async () => {
     try {
       if (!email || !password) {
         throw new Error('Email and password are required');
@@ -77,9 +86,18 @@ const LoginForm: FC = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  const handleShowSignup = () => {
+    dispatch(setShowSignUp(true));
+  };
+
   return (
     <Container maxWidth="xs">
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Zoom in={true} timeout={1200}>
+          <Grid item xs={12} textAlign="center">
+            <img src={agree} alt="login-iagree" height="300px" width="400px" />
+          </Grid>
+        </Zoom>
         <Grid item xs={12}>
           <TextField
             name="email"
@@ -91,7 +109,7 @@ const LoginForm: FC = () => {
             onChange={handleChange}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                handleSubmit();
+                handleLogin();
               }
             }}
           />
@@ -108,7 +126,7 @@ const LoginForm: FC = () => {
             onChange={handleChange}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                handleSubmit();
+                handleLogin();
               }
             }}
           />
@@ -118,10 +136,25 @@ const LoginForm: FC = () => {
             variant="contained"
             color="primary"
             fullWidth
-            onClick={handleSubmit}
+            onClick={handleLogin}
           >
             Login
           </Button>
+        </Grid>
+        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+          <Typography>
+            Don&apos;t have an account?{' '}
+            <Button
+              onClick={handleShowSignup}
+              variant="text"
+              sx={{
+                textDecoration: 'underline',
+                textTransform: 'capitalize',
+              }}
+            >
+              Sign up
+            </Button>
+          </Typography>
         </Grid>
       </Grid>
     </Container>

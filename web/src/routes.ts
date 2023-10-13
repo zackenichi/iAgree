@@ -25,6 +25,7 @@ export const routes: Array<Route> = [
     needsLogin: false,
     component: Login,
   },
+
   {
     key: 'home-route',
     title: 'Dashboard',

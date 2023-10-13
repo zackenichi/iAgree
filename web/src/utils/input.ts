@@ -13,4 +13,12 @@ const isValidEmail = (email: string): boolean => {
   return emailSchema.safeParse(email).success;
 };
 
-export { isValidEmail, isValueEmpty };
+const isStrongPassword = (password: string): boolean => {
+  const passwordSchema = z
+    .string()
+    .min(8)
+    .regex(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])/);
+  return passwordSchema.safeParse(password).success;
+};
+
+export { isValidEmail, isValueEmpty, isStrongPassword };
