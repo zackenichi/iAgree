@@ -14,10 +14,15 @@ const App: FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!currentUser) {
+    if (!currentUser && isProtectedRoute(pathname)) {
       navigate('/login');
     }
   }, [currentUser, navigate, pathname]);
+
+  const isProtectedRoute = (path: string) => {
+    const route = appRoutes.find((r) => r.path === path);
+    return route?.needsLogin || false;
+  };
 
   return (
     <Box
