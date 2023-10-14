@@ -1,7 +1,7 @@
 import { Approval } from './Approvals';
 
 export interface Agreement {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
   status: string;

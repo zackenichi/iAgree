@@ -9,7 +9,6 @@ import { ContentArea } from '../ContentArea';
 import { NotificationBar } from '../NotificationBar';
 
 const App: FC = () => {
-  console.log('App.tsx');
   return (
     <Box
       sx={{

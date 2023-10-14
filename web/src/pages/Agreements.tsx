@@ -1,4 +1,4 @@
-import { ReactElement, FC } from 'react';
+import { ReactElement, FC, useEffect } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { List as AgreementList } from '../components/List';
@@ -10,22 +10,30 @@ import { setMode, setOpenDrawer } from '../store/UiReducer';
 import { AddScreen } from '../components/AddScreen';
 import EditScreen from '../components/EditScreen/EditScreen';
 import { SideDrawer } from '../components/SideDrawer';
+import { getAgreements } from '../services';
+import { setAgreementList } from '../store/AgreementReducer';
 
 const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
-  const loggedInUser = useSelector(
-    (state: RootState) => state.auth.currentUser
-  );
   const agreementList = useSelector((state: RootState) => state.agreement.list);
-  const mode = useSelector((state: RootState) => state.ui.mode);
 
-  console.log('user', loggedInUser);
+  const mode = useSelector((state: RootState) => state.ui.mode);
 
   const handleCreate = () => {
     dispatch(setMode('create'));
     dispatch(setOpenDrawer(true));
   };
+
+  useEffect(() => {
+    const fetchAgreements = async () => {
+      const agreements = await getAgreements();
+      // Dispatch an action to update the agreement list in the Redux store
+      dispatch(setAgreementList(agreements));
+    };
+
+    fetchAgreements();
+  }, [dispatch]);
 
   return (
     <>
