@@ -13,12 +13,16 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Search } from '../Search';
 import { useIsSmallScreen } from '../../hooks';
 import { AuthContext } from '../../Providers';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
 
-  const { currentUser, signOut } = useContext(AuthContext);
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+
+  const { signOut } = useContext(AuthContext);
 
   const isSmallScreen = useIsSmallScreen();
 

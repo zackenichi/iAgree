@@ -15,7 +15,7 @@ const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
   const loggedInUser = useSelector(
-    (state: RootState) => state.auth.loggedInUser
+    (state: RootState) => state.auth.currentUser
   );
   const agreementList = useSelector((state: RootState) => state.agreement.list);
   const mode = useSelector((state: RootState) => state.ui.mode);
