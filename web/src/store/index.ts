@@ -2,10 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import AgreementReducer from './AgreementReducer';
 import UiReducer from './UiReducer';
 import NotificationReducer from './NotificationReducer';
+import AuthenticationReducer from './AuthenticationReducer';
 
 export const store = configureStore({
   reducer: {
-    auth: AgreementReducer,
+    auth: AuthenticationReducer,
     agreement: AgreementReducer,
     ui: UiReducer,
     notification: NotificationReducer,

@@ -14,8 +14,13 @@ import { SideDrawer } from '../components/SideDrawer';
 const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
 
+  const loggedInUser = useSelector(
+    (state: RootState) => state.auth.loggedInUser
+  );
   const agreementList = useSelector((state: RootState) => state.agreement.list);
   const mode = useSelector((state: RootState) => state.ui.mode);
+
+  console.log('user', loggedInUser);
 
   const handleCreate = () => {
     dispatch(setMode('create'));

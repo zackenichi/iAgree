@@ -10,6 +10,7 @@ import { setShowSignUp } from '../../store/UiReducer';
 import { signUpUser } from '../../firebase/firebase';
 import { setNotification } from '../../store/NotificationReducer';
 import { useNavigate } from 'react-router-dom';
+import { addUserToFirestore } from '../../services';
 
 const defaultFormFields = {
   name: '',
@@ -60,6 +61,7 @@ const Signup: FC = () => {
   };
 
   const handleSignup = async () => {
+    // transfer this to RTK later or we can add a loading state to redux
     try {
       if (nameError || emailError || passwordError) {
         setEmailError(true);
@@ -73,7 +75,14 @@ const Signup: FC = () => {
         throw new Error('User not created');
       }
 
-      //   do something else for firebase DB
+      const newUser = {
+        name,
+        organization,
+        email,
+      };
+
+      //   do something else for firestore DB
+      await addUserToFirestore(newUser);
 
       //   snackbar
 

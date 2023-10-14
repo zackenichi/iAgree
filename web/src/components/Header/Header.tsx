@@ -96,9 +96,7 @@ const Header: FC = () => {
                   ))}
             </Box>
           </Box>
-          <Box textAlign="right">
-            <Search />
-          </Box>
+          <Box textAlign="right">{currentUser && <Search />}</Box>
           <Box>
             <IconButton onClick={handleAddNotif}>
               <Badge
@@ -106,12 +104,12 @@ const Header: FC = () => {
                 color="warning"
                 invisible={!Boolean(notifCount)}
               >
-                <NotificationsIcon />
+                {currentUser && <NotificationsIcon />}
               </Badge>
             </IconButton>
           </Box>
           {isSmallScreen ? (
-            <LoginIcon />
+            <LoginIcon onClick={handleLogin} />
           ) : (
             <Button color="inherit" variant="outlined" onClick={handleLogin}>
               {currentUser ? 'Logout' : 'Login'}
