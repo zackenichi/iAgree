@@ -1,14 +1,15 @@
 import { createContext, useState, useEffect, FC } from 'react';
-import { User } from 'firebase/auth';
+import { User as FirebaseUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { SignOutUser, userStateListener } from '../firebase/firebase';
 import { PropsWithChildren } from '../resources/interfaces/PropsWithChildren';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../services';
-// import { setLoggedInUser } from '../store/AuthenticationReducer';
+import { setLoggedInUser } from '../store/AuthenticationReducer';
+import { User } from '../resources/interfaces/User';
 
 interface AuthContextProps {
-  currentUser: User | null;
+  currentUser: FirebaseUser | null;
   signOut: () => void;
 }
 
@@ -18,22 +19,25 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   getCurrentUser();
 
   useEffect(() => {
-    const unsubscribe = userStateListener((user) => {
-      // console.log(user);
+    const unsubscribe = userStateListener(async (user) => {
       setCurrentUser(user);
+      if (user) {
+        const userDocument = (await getCurrentUser()) as User;
+        dispatch(setLoggedInUser(userDocument));
+      } else {
+        navigate('/login');
+      }
     });
-    if (!currentUser) {
-      navigate('/login');
-    }
+
     return unsubscribe;
-  }, [currentUser, navigate]);
+  }, [currentUser, dispatch, navigate]);
 
   const signOut = () => {
     SignOutUser();
