@@ -27,8 +27,12 @@ export const agreementsSlice = createSlice({
     setPreview: (state, action: PayloadAction<Agreement>) => {
       state.preview = action.payload;
     },
+    setAgreementList: (state, action: PayloadAction<Agreement[]>) => {
+      state.list = action.payload;
+    },
   },
 });
 
-export const { createAgreement, setPreview } = agreementsSlice.actions;
+export const { createAgreement, setPreview, setAgreementList } =
+  agreementsSlice.actions;
 export default agreementsSlice.reducer;

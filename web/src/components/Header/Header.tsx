@@ -13,12 +13,16 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Search } from '../Search';
 import { useIsSmallScreen } from '../../hooks';
 import { AuthContext } from '../../Providers';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Header: FC = () => {
   const { pathname: current } = useLocation();
   const [notifCount, setNotifCount] = useState(0);
 
-  const { currentUser, signOut } = useContext(AuthContext);
+  const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+
+  const { signOut } = useContext(AuthContext);
 
   const isSmallScreen = useIsSmallScreen();
 
@@ -96,9 +100,7 @@ const Header: FC = () => {
                   ))}
             </Box>
           </Box>
-          <Box textAlign="right">
-            <Search />
-          </Box>
+          <Box textAlign="right">{currentUser && <Search />}</Box>
           <Box>
             <IconButton onClick={handleAddNotif}>
               <Badge
@@ -106,12 +108,12 @@ const Header: FC = () => {
                 color="warning"
                 invisible={!Boolean(notifCount)}
               >
-                <NotificationsIcon />
+                {currentUser && <NotificationsIcon />}
               </Badge>
             </IconButton>
           </Box>
           {isSmallScreen ? (
-            <LoginIcon />
+            <LoginIcon onClick={handleLogin} />
           ) : (
             <Button color="inherit" variant="outlined" onClick={handleLogin}>
               {currentUser ? 'Logout' : 'Login'}

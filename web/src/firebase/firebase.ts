@@ -1,4 +1,6 @@
+// This is for firebase services
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import {
   getAuth,
   onAuthStateChanged,
@@ -12,7 +14,8 @@ import {
 import { getFirebaseConfig } from './firebase-config';
 
 const app = initializeApp(getFirebaseConfig());
-const auth = getAuth(app);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 export const signInUser = async (email: string, password: string) => {
   if (!email && !password) return;

@@ -9,14 +9,18 @@ import {
 import { FC, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Divider } from '../Divider';
-import { useDispatch } from 'react-redux';
-import { createAgreement } from '../../store/AgreementReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { v4 as uuidv4 } from 'uuid';
 import { setOpenDrawer } from '../../store/UiReducer';
+import { createAgreement } from '../../services';
+import { setNotification } from '../../store/NotificationReducer';
+import { RootState } from '../../store';
+import { Approval } from '../../resources/interfaces/Approvals';
 
 const AddScreen: FC = () => {
   const dispatch = useDispatch();
+
+  const user = useSelector((state: RootState) => state.auth.currentUser);
 
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -26,27 +30,47 @@ const AddScreen: FC = () => {
     dispatch(setOpenDrawer(false));
   };
 
-  const handleCreate = () => {
-    if (name) {
-      const id = uuidv4();
+  const handleCreate = async () => {
+    try {
+      if (!name) {
+        throw new Error('Name is required');
+      }
+
+      const selfApproval: Approval = {
+        id: user?.id || '',
+        name: user?.name || '',
+        status: true,
+        updatedAt: new Date().toISOString(),
+      };
 
       const newAgreement = {
-        id,
         name,
         description: description || '',
         status: 'Waiting',
-        approvals: [],
+        approvals: [selfApproval],
       };
 
-      dispatch(createAgreement(newAgreement));
-      // todo : add a success snackbar
+      await createAgreement(newAgreement);
+
+      dispatch(
+        setNotification({
+          message: 'New agreement created!',
+          severity: 'success',
+          open: true,
+        })
+      );
 
       dispatch(setOpenDrawer(false));
       handleClear();
       setHasError(false);
-    } else {
-      // todo : add a error snackbar
-      setHasError(true);
+    } catch (error: any) {
+      dispatch(
+        setNotification({
+          message: error.message || 'Something went wrong',
+          severity: 'error',
+          open: true,
+        })
+      );
     }
   };
 

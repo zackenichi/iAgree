@@ -8,12 +8,14 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ data }) => {
+  console.log('list', data);
+
   return (
     <Grid container spacing={2}>
       {data.map((item) => (
         <Grid item md={3} xs={12} key={item.id}>
           <SummaryCard
-            id={item.id}
+            id={item.id!}
             title={item.name}
             description={item.description}
             status={item.status}

@@ -1,6 +1,6 @@
 export interface Approval {
-  id: number;
+  id: string;
   name: string;
   status: boolean;
-  updatedAt: Date;
+  updatedAt: string;
 }
