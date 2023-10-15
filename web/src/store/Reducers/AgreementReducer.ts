@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Agreement } from '../resources/interfaces/Agreement';
+import { Agreement } from '../../resources/interfaces/Agreement';
 
 export interface AgreementInitialState {
   list: Agreement[];
@@ -35,4 +35,6 @@ export const agreementsSlice = createSlice({
 
 export const { createAgreement, setPreview, setAgreementList } =
   agreementsSlice.actions;
-export default agreementsSlice.reducer;
+const AgreementReducer = agreementsSlice.reducer;
+
+export { AgreementReducer };

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUser } from '../services';
 
 import { User } from '../resources/interfaces/User';
-import { setCurrentUser } from '../store/AuthenticationReducer';
+import { setCurrentUser } from '../store/Reducers';
 
 interface AuthContextProps {
   signOut: () => void;

@@ -11,11 +11,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Divider } from '../Divider';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setOpenDrawer } from '../../store/UiReducer';
 import { createAgreement } from '../../services';
-import { setNotification } from '../../store/NotificationReducer';
+
 import { RootState } from '../../store';
 import { Approval } from '../../resources/interfaces/Approvals';
+import { setNotification, setOpenDrawer } from '../../store/Reducers';
 
 const AddScreen: FC = () => {
   const dispatch = useDispatch();

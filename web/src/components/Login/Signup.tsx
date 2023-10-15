@@ -6,9 +6,9 @@ import {
   isValueEmpty,
 } from '../../utils/input';
 import { useDispatch } from 'react-redux';
-import { setShowSignUp } from '../../store/UiReducer';
+import { setShowSignUp, setNotification } from '../../store/Reducers';
 import { signUpUser } from '../../firebase/firebase';
-import { setNotification } from '../../store/NotificationReducer';
+
 import { useNavigate } from 'react-router-dom';
 import { addUserToFirestore } from '../../services';
 

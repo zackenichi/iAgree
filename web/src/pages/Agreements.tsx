@@ -6,12 +6,12 @@ import { NoItems } from '../components/UI';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { setMode, setOpenDrawer } from '../store/UiReducer';
+import { setMode, setOpenDrawer } from '../store/Reducers';
 import { AddScreen } from '../components/AddScreen';
 import EditScreen from '../components/EditScreen/EditScreen';
 import { SideDrawer } from '../components/SideDrawer';
 import { getAgreements } from '../services';
-import { setAgreementList } from '../store/AgreementReducer';
+import { setAgreementList } from '../store/Reducers/AgreementReducer';
 
 const Agreements: FC = (): ReactElement => {
   const dispatch = useDispatch();
