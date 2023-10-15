@@ -29,7 +29,9 @@ const Agreements: FC = (): ReactElement => {
     const fetchAgreements = async () => {
       const agreements = await getAgreements();
       // Dispatch an action to update the agreement list in the Redux store
-      dispatch(setAgreementList(agreements));
+      if (agreements) {
+        dispatch(setAgreementList(agreements));
+      }
     };
 
     fetchAgreements();
