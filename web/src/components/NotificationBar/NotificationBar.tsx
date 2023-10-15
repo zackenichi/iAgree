@@ -2,7 +2,7 @@ import { Alert, Snackbar } from '@mui/material';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { hideNotification } from '../../store/NotificationReducer';
+import { hideNotification } from '../../store/Reducers';
 
 const NotificationBar: FC = () => {
   const { open, message, severity } = useSelector(

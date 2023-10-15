@@ -4,12 +4,14 @@ export interface UiInitialState {
   isDrawerOpen: boolean;
   mode: string;
   showSignUp: boolean;
+  isLoading: boolean;
 }
 
 const initialState: UiInitialState = {
   isDrawerOpen: false,
   mode: '',
   showSignUp: false,
+  isLoading: false,
 };
 export const uiSlice = createSlice({
   name: 'ui',
@@ -24,8 +26,14 @@ export const uiSlice = createSlice({
     setShowSignUp: (state, action: PayloadAction<boolean>) => {
       state.showSignUp = action.payload;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { setOpenDrawer, setMode, setShowSignUp } = uiSlice.actions;
-export default uiSlice.reducer;
+export const { setOpenDrawer, setMode, setShowSignUp, setLoading } =
+  uiSlice.actions;
+const UiReducer = uiSlice.reducer;
+
+export { UiReducer };

@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { signInUser } from '../../firebase/firebase';
 import { isValidEmail, isValueEmpty } from '../../utils/input';
 import { useDispatch } from 'react-redux';
-import { setNotification } from '../../store/NotificationReducer';
-import { setShowSignUp } from '../../store/UiReducer';
+import { setNotification, setShowSignUp } from '../../store/Reducers';
+
 import agree from '../../assets/img/agreement.png';
 
 const defaultFormFields = {

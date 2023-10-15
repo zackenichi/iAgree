@@ -4,9 +4,9 @@ import { Box, Chip, Grid, Typography } from '@mui/material';
 import { Color } from '../../resources/types/types';
 import { Approval } from '../../resources/interfaces/Approvals';
 import { ApprovalRate } from '../UI';
-import { setMode, setOpenDrawer } from '../../store/UiReducer';
+import { setMode, setOpenDrawer } from '../../store/Reducers';
 import { useDispatch } from 'react-redux';
-import { setPreview } from '../../store/AgreementReducer';
+import { setPreview } from '../../store/Reducers/AgreementReducer';
 
 const statusColor = (status: string): Color => {
   switch (status) {

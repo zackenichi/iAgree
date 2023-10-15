@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { setOpenDrawer } from '../../store/UiReducer';
+import { setOpenDrawer } from '../../store/Reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
