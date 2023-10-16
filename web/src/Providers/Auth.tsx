@@ -38,6 +38,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     SignOutUser();
     dispatch(setCurrentUser(null));
     navigate('/login');
+    window.location.reload();
   };
 
   return (
