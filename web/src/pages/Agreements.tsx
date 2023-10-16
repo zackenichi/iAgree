@@ -6,7 +6,7 @@ import { NoItems } from '../components/UI';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { setMode, setOpenDrawer } from '../store/Reducers';
+import { setLoading, setMode, setOpenDrawer } from '../store/Reducers';
 import { AddScreen } from '../components/AddScreen';
 import EditScreen from '../components/EditScreen/EditScreen';
 import { SideDrawer } from '../components/SideDrawer';
@@ -27,6 +27,7 @@ const Agreements: FC = (): ReactElement => {
 
   useEffect(() => {
     const fetchAgreements = async () => {
+      dispatch(setLoading(true));
       const agreements = await getAgreements();
       // Dispatch an action to update the agreement list in the Redux store
       if (agreements) {
@@ -35,6 +36,7 @@ const Agreements: FC = (): ReactElement => {
     };
 
     fetchAgreements();
+    dispatch(setLoading(false));
   }, [dispatch]);
 
   return (

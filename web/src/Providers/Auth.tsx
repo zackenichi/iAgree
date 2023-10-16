@@ -21,8 +21,6 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  getCurrentUser();
-
   useEffect(() => {
     const unsubscribe = userStateListener(async (user) => {
       if (user) {
@@ -38,6 +36,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const signOut = () => {
     SignOutUser();
+    dispatch(setCurrentUser(null));
     navigate('/login');
   };
 

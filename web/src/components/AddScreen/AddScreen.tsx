@@ -15,7 +15,11 @@ import { createAgreement } from '../../services';
 
 import { RootState } from '../../store';
 import { Approval } from '../../resources/interfaces/Approvals';
-import { setNotification, setOpenDrawer } from '../../store/Reducers';
+import {
+  setLoading,
+  setNotification,
+  setOpenDrawer,
+} from '../../store/Reducers';
 
 const AddScreen: FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +36,7 @@ const AddScreen: FC = () => {
 
   const handleCreate = async () => {
     try {
+      dispatch(setLoading(true));
       if (!name) {
         throw new Error('Name is required');
       }
@@ -52,6 +57,7 @@ const AddScreen: FC = () => {
 
       await createAgreement(newAgreement);
 
+      dispatch(setLoading(false));
       dispatch(
         setNotification({
           message: 'New agreement created!',
@@ -64,6 +70,7 @@ const AddScreen: FC = () => {
       handleClear();
       setHasError(false);
     } catch (error: any) {
+      dispatch(setLoading(false));
       dispatch(
         setNotification({
           message: error.message || 'Something went wrong',
