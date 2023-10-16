@@ -8,8 +8,6 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ data }) => {
-  console.log('list', data);
-
   return (
     <Grid container spacing={2}>
       {data.map((item) => (

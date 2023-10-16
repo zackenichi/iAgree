@@ -1,4 +1,11 @@
-import { collection, addDoc, getDocs, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 import { db, auth } from '../firebase/firebase';
 import { Agreement } from '../resources/interfaces/Agreement';
 
@@ -39,23 +46,18 @@ const getAgreements = async (): Promise<Agreement[] | null> => {
   }
 };
 
-// const getAgreementsWithUserId = async (
-//   userId: string
-// ): Promise<Agreement[]> => {
-//   try {
-//     const agreementsCollectionRef = collection(db, 'agreements');
-//     const snapshot = await getDocs(agreementsCollectionRef);
-//     const agreements = snapshot.docs.map((doc) => doc.data() as Agreement);
+const deleteAgreement = async (agreementId: string) => {
+  try {
+    // remove later
+    console.log('agreementId', agreementId);
+    //
 
-// const agreementsWithUserId = agreements.filter((agreement) => {
-//   return agreement.approvals?.some((approval) => approval.id === userId);
-// });
+    const agreementsCollectionRef = collection(db, 'agreements');
+    await deleteDoc(doc(agreementsCollectionRef, agreementId));
+    console.log('Agreement deleted from Firestore collection');
+  } catch (error) {
+    console.error('Error deleting agreement from Firestore collection:', error);
+  }
+};
 
-//     return agreementsWithUserId;
-//   } catch (error) {
-//     console.error('Error getting agreements from Firestore:', error);
-//     return [];
-//   }
-// };
-
-export { createAgreement, getAgreements };
+export { createAgreement, getAgreements, deleteAgreement };
